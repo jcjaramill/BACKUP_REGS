@@ -9,7 +9,7 @@ function Header({ onAuthChange }) {
 
   useEffect(() => {
     if (token) {
-      fetch("http://localhost:8002/api/me", {
+      fetch("https://8000-jcjaramill-backupregs-u2jdl4ku16p.ws-us121.gitpod.io/api/me", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -33,7 +33,7 @@ function Header({ onAuthChange }) {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:8002/api/token", {
+      const res = await fetch("https://8000-jcjaramill-backupregs-u2jdl4ku16p.ws-us121.gitpod.io/api/token", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: usuario, password: password }),

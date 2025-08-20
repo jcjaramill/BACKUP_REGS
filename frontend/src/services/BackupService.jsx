@@ -15,7 +15,7 @@ export function uploadBackup(file, metadata, onProgressPercent, onProgressKb) {
     formData.append("sistema", metadata.sistema);
     formData.append("linea", metadata.linea);
 
-    xhr.open("POST", "http://localhost:8002/api/upload-backup", true);
+    xhr.open("POST", "https://8000-jcjaramill-backupregs-u2jdl4ku16p.ws-us121.gitpod.io/api/upload-backup", true);
 
     // 🔐 Añadir token JWT si existe
     const token = localStorage.getItem("token");
@@ -57,7 +57,7 @@ export function uploadBackup(file, metadata, onProgressPercent, onProgressKb) {
 export async function fetchBackups() {
   const token = localStorage.getItem("token");
 
-  const res = await fetch("http://localhost:8002/api/backups", {
+  const res = await fetch("https://8000-jcjaramill-backupregs-u2jdl4ku16p.ws-us121.gitpod.io/api/backups", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

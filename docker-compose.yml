@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      MONGO_URI: "mongodb+srv://user_mongo:dobleq3@cluster0.sj5du.mongodb.net/electronica?retryWrites=true&w=majority&authSource=admin"
+      DB_NAME: "electronica"
+      PYTHONUNBUFFERED: "1"
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    command: >
+      uvicorn main:app
+      --host 0.0.0.0
+      --port 8000
+      --reload
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    working_dir: /app
+    ports:
+      - "5173:5173"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: >
+      npm run dev
+      -- --host 0.0.0.0
+
+volumes:
+  mongo-data:
